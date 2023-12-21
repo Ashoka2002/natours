@@ -17,7 +17,8 @@ const tourSchema = new mongoose.Schema(
     imageCover: { type: String, trim: true, require: [true, "A tour must have a cover image"] },
     images: [String],
     createdAt: { type: Date, default: Date.now(), select: false },
-    startDates: [Date]
+    startDates: [Date],
+    secretTour: { type: Boolean, default: false }
   },
   {
     toJSON: { virtuals: true },
@@ -29,8 +30,20 @@ tourSchema.virtual("durationWeeks").get(function() {
   return this.duration / 7;
 });
 
-tourSchema.pre("save", function() {
+tourSchema.pre("save", function(next) {
   this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+tourSchema.pre(/^find/, function(next) {
+  this.find({ secretTour: { $ne: true } });
+  this.start = Date.now();
+  next();
+});
+
+tourSchema.post(/^find/, function(docs, next) {
+  console.log(`Query took ${Date.now() - this.start} miliseconds!!!`);
+  next();
 });
 
 const Tour = mongoose.model("Tour", tourSchema);
