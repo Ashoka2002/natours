@@ -13,7 +13,7 @@ async function sendEmail(options) {
 
   //DEFINE THE EMAIL OPTION
   const mailOption = {
-    from: "Ashok Choudhary <ashok@jonas.io>",
+    from: "Ashok Choudhary <ashokchoudhary@email.com>",
     to: options.email,
     subject: options.subject,
     text: options.message
