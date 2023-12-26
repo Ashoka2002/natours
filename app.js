@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
 
 const globalErrorHandler = require("./controllers/errorController");
 const tourRouter = require("./routes/tourRoutes");
@@ -9,21 +10,30 @@ const AppError = require("./utils/appErrors");
 
 const app = express();
 
-// MIDDLEWARES
+// GLOBAL MIDDLEWARES
+// SET SECURITY HTTP HEADERS
+app.use(helmet());
+
+// DEVELOPMENT LOGGING
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+// LIMIT REQUREST FROM SAME API
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
   message: "Too many requsts, Please try again later"
 });
-
 app.use("/api", limiter);
 
-app.use(express.json());
+//BODY PARSER, READING DATA FROM BODY INTO req.body
+app.use(express.json({ limit: "20kb" }));
+
+//SERVING STATIC FILES
 app.use(express.static("./public"));
+
+////TEST MIDDLEWARE
 // app.use((req, res, next) => {
 //   console.log(req.headers);
 //   next();
