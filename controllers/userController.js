@@ -1,17 +1,7 @@
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appErrors");
-const { deleteOne, updateOne } = require("./handlerFactory");
-
-exports.getAllusers = catchAsync(async (req, res, next) => {
-  const users = await User.find();
-
-  res.status(200).json({
-    status: "success",
-    results: users.length,
-    data: { users }
-  });
-});
+const { deleteOne, updateOne, getOne, getAll } = require("./handlerFactory");
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -52,13 +42,15 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getUser = (req, res) => {
+exports.createUser = catchAsync(async (req, res, next) => {
   res.status(500).json({
     status: "error",
-    message: "this route not defined yet"
+    message: "This route is unavailable, Please use signUp"
   });
-};
+});
 
+exports.getAllusers = getAll(User);
+exports.getUser = getOne(User);
 // DO NOT ATTEMPT TO CHANGE PASSWORD USIGN THIS updateUser HANDLER
 exports.updateUser = updateOne(User);
 exports.deleteUser = deleteOne(User);

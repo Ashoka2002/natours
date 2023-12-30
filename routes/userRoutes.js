@@ -1,6 +1,14 @@
 const express = require("express");
 
-const { getAllusers, getUser, updateUser, deleteUser, updateMe, deleteMe } = require("../controllers/userController");
+const {
+  getAllusers,
+  getUser,
+  updateUser,
+  deleteUser,
+  updateMe,
+  deleteMe,
+  createUser
+} = require("../controllers/userController");
 const {
   signup,
   login,
@@ -21,8 +29,10 @@ router.patch("/updatePassword", protect, updatePassword);
 router.patch("/updateMe", protect, updateMe);
 router.delete("/deleteMe", protect, deleteMe);
 
-router.route("/").get(getAllusers);
-// .post(createuser);
+router
+  .route("/")
+  .get(getAllusers)
+  .post(createUser);
 
 router
   .route("/:id")
