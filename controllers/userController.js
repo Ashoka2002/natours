@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appErrors");
-const { deleteOne } = require("./handlerFactory");
+const { deleteOne, updateOne } = require("./handlerFactory");
 
 exports.getAllusers = catchAsync(async (req, res, next) => {
   const users = await User.find();
@@ -59,16 +59,6 @@ exports.getUser = (req, res) => {
   });
 };
 
-exports.createuser = (req, res) => {
-  res.status(500).json({
-    status: "error"
-  });
-};
-
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    status: "error"
-  });
-};
-
+// DO NOT ATTEMPT TO CHANGE PASSWORD USIGN THIS updateUser HANDLER
+exports.updateUser = updateOne(User);
 exports.deleteUser = deleteOne(User);
