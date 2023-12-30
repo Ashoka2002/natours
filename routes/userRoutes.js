@@ -15,7 +15,8 @@ const {
   forgotPassword,
   resetPassword,
   updatePassword,
-  protect
+  protect,
+  restrictTo
 } = require("../controllers/authController");
 
 const router = express.Router();
@@ -37,6 +38,6 @@ router
   .route("/:id")
   .get(getUser)
   .patch(updateUser)
-  .delete(deleteUser);
+  .delete(protect, restrictTo("admin"), deleteUser);
 
 module.exports = router;

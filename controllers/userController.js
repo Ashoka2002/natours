@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appErrors");
+const { deleteOne } = require("./handlerFactory");
 
 exports.getAllusers = catchAsync(async (req, res, next) => {
   const users = await User.find();
@@ -70,8 +71,4 @@ exports.updateUser = (req, res) => {
   });
 };
 
-exports.deleteUser = (req, res) => {
-  res.status(500).json({
-    status: "error"
-  });
-};
+exports.deleteUser = deleteOne(User);
