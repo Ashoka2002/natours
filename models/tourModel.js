@@ -83,6 +83,12 @@ tourSchema.virtual("durationWeeks").get(function() {
   if (this.duration) return this.duration / 7;
 });
 
+tourSchema.virtual("review", {
+  ref: "Review",
+  foreignField: "tour",
+  localField: "_id"
+});
+
 /////////////////////////////
 /////FOR EMBADING IN DB DOCUMENT
 // tourSchema.pre("save", async function(next) {
