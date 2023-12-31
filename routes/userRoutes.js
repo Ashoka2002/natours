@@ -7,7 +7,8 @@ const {
   deleteUser,
   updateMe,
   deleteMe,
-  createUser
+  createUser,
+  getMe
 } = require("../controllers/userController");
 const {
   signup,
@@ -28,6 +29,7 @@ router.patch("/resetPassword/:token", resetPassword);
 router.patch("/updatePassword", protect, updatePassword);
 router.patch("/updateMe", protect, updateMe);
 router.delete("/deleteMe", protect, deleteMe);
+router.get("/me", protect, getMe, getUser);
 
 router
   .route("/")
