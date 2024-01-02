@@ -10,6 +10,7 @@ const {
   createUser,
   getMe
 } = require("../controllers/userController");
+
 const {
   signup,
   login,
@@ -27,10 +28,14 @@ router.post("/login", login);
 router.post("/forgotPassword", forgotPassword);
 router.patch("/resetPassword/:token", resetPassword);
 
-router.patch("/updatePassword", protect, updatePassword);
-router.patch("/updateMe", protect, updateMe);
-router.delete("/deleteMe", protect, deleteMe);
-router.get("/me", protect, getMe, getUser);
+router.use(protect);
+
+router.patch("/updatePassword", updatePassword);
+router.patch("/updateMe", updateMe);
+router.delete("/deleteMe", deleteMe);
+router.get("/me", getMe, getUser);
+
+router.use(restrictTo("admin"));
 
 router
   .route("/")
@@ -40,7 +45,7 @@ router
 router
   .route("/:id")
   .get(getUser)
-  .patch(protect, restrictTo("admin"), updateUser)
-  .delete(protect, restrictTo("admin"), deleteUser);
+  .patch(updateUser)
+  .delete(deleteUser);
 
 module.exports = router;
