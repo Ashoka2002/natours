@@ -1,4 +1,5 @@
 const Tour = require("../models/tourModel");
+const AppError = require("../utils/appErrors.js");
 const catchAsync = require("../utils/catchAsync");
 const { deleteOne, updateOne, createOne, getOne, getAll } = require("./handlerFactory.js");
 
@@ -68,6 +69,28 @@ exports.getTour = getOne(Tour, { path: "reviews" });
 exports.createTour = createOne(Tour);
 exports.updateTour = updateOne(Tour);
 exports.deleteTour = deleteOne(Tour);
+
+// router.route("/tours-within/:distance/center/:latlng/unit/:unit", getTourWithin);
+
+exports.getTourWithin = catchAsync(async (req, res, next) => {
+  const { distance, latlng, unit } = req.params;
+  const [lat, lng] = latlng.split(",");
+  if (!lat || !lng) next(new AppError("Please provide latitude and longitude in lat,lng format", 400));
+
+  const radius = unit === "mi" ? distance / 3963.2 : distance / 6378.1;
+
+  const tours = await Tour.find({ startLocation: { $geoWithin: { $centerSphere: [[lng, lat], radius] } } });
+
+  console.log(distance, latlng, unit);
+
+  res.status(200).json({
+    status: "success",
+    results: tours.length,
+    data: {
+      data: tours
+    }
+  });
+});
 
 // exports.deleteTour = catchAsync(async (req, res, next) => {
 //   const tour = await Tour.findByIdAndDelete(req.params.id);
