@@ -498,7 +498,7 @@ body {
 
 .section-map {
   position: relative;
-  height: 65rem;
+  height: 50rem;
   margin-top: calc(0px - var(--section-rotate));
 }
 
@@ -550,6 +550,11 @@ body {
   -ms-scroll-snap-type: x mandatory;
   scroll-snap-type: x mandatory;
 }
+
+.reviews::-webkit-scrollbar {
+  display: none;
+}
+
 .reviews__card {
   width: 30rem;
   padding: 4rem;

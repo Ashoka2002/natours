@@ -1,0 +1,24 @@
+/* eslint-disable */
+const locations = JSON.parse(document.getElementById("map").dataset.locations);
+
+// const map = L.map("map", { zoomControl: false }); //to disable + - zoom
+var map = L.map("map", { zoomControl: false }).setView([31.111745, -118.113491], 6);
+
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  crossOrigin: ""
+}).addTo(map);
+
+// const points = [];
+// locations.forEach(loc => {
+//   points.push([loc.coordinates[1], loc.coordinates[0]]);
+//   L.marker([loc.coordinates[1], loc.coordinates[0]])
+//     .addTo(map)
+//     .bindPopup(`<h4>Day ${loc.day}: ${loc.description}</h4>`, { autoClose: false })
+//     .openPopup();
+// });
+
+// const bounds = L.latLngBounds(points).pad(0.5);
+// map.fitBounds(bounds);
+
+// map.scrollWheelZoom.disable(); //to disable zoom by mouse wheel
