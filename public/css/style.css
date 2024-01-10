@@ -517,6 +517,10 @@ body {
   cursor: pointer;
 }
 
+.leaflet-popup-content-wrapper {
+  font-size: larger;
+}
+
 .mapboxgl-popup {
   max-width: 25rem;
 }
