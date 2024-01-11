@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
+const cookieparser = require("cookie-parser");
 
 const globalErrorHandler = require("./controllers/errorController");
 const tourRouter = require("./routes/tourRoutes");
@@ -25,7 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // GLOBAL MIDDLEWARES
 // SET SECURITY HTTP HEADERS
-const scriptSrcUrls = ["https://unpkg.com/", "https://tile.openstreetmap.org"];
+const scriptSrcUrls = ["https://unpkg.com/", "https://tile.openstreetmap.org", "https://cdnjs.cloudflare.com"];
 const styleSrcUrls = ["https://unpkg.com/", "https://tile.openstreetmap.org", "https://fonts.googleapis.com/"];
 const connectSrcUrls = ["https://unpkg.com", "https://tile.openstreetmap.org"];
 const fontSrcUrls = ["fonts.googleapis.com", "fonts.gstatic.com"];
@@ -63,6 +64,7 @@ app.use("/api", limiter);
 
 //BODY PARSER, READING DATA FROM BODY INTO req.body
 app.use(express.json({ limit: "20kb" }));
+app.use(cookieparser());
 
 //DATA SANITIZATION AGAINST NOSQL QUERY INJECTION
 app.use(mongoSanitize());
@@ -78,10 +80,10 @@ app.use(
 );
 
 ////TEST MIDDLEWARE
-// app.use((req, res, next) => {
-//   console.log(req.headers);
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log(req.cookies);
+  next();
+});
 
 // ROUTES
 
