@@ -1,4 +1,5 @@
 /* eslint-disable */
+import axios from "axios";
 
 async function login(email, password) {
   // if (!email || !password) return;
@@ -23,9 +24,4 @@ async function login(email, password) {
   }
 }
 
-document.querySelector(".form").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const email = document.querySelector("#email").value;
-  const password = document.querySelector("#password").value;
-  login(email, password);
-});
+export default login;
