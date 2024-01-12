@@ -32,7 +32,7 @@ const createAndSendToken = (user, statusCode, res) => {
 };
 
 exports.logout = (req, res) => {
-  res.cookie("jwt", "loggout", { expires: new Date(Date.now() + 60 * 1000), httpOnly: true });
+  res.cookie("jwt", "null", { expires: new Date(Date.now() - 10 * 1000), httpOnly: true });
   res.status(200).json({ status: "success" });
 };
 
