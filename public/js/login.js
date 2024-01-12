@@ -1,7 +1,8 @@
 /* eslint-disable */
-import axios from "axios";
 
-async function login(email, password) {
+import { showAlert } from "./alerts";
+
+export async function login(email, password) {
   // if (!email || !password) return;
   try {
     const res = await axios({
@@ -14,14 +15,12 @@ async function login(email, password) {
     });
 
     if (res.data.status === "success") {
-      alert("Logged in succesfull!");
+      showAlert("success", "Logged in succesfull!");
       window.setTimeout(() => {
         location.assign("/");
       }, 1500);
     }
   } catch (err) {
-    alert(err.response.data.message);
+    showAlert("error", err.response.data.message);
   }
 }
-
-export default login;

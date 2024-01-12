@@ -1,5 +1,7 @@
 /*eslint-disable*/
-import login from "./login";
+import "core-js/stable";
+import "regenerator-runtime/runtime.js";
+import { login } from "./login";
 import displayMap from "./leaflet";
 
 //DOM ELEMENT
