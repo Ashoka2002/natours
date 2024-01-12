@@ -163,6 +163,7 @@ var _leaflet = require("./leaflet");
 var _leafletDefault = parcelHelpers.interopDefault(_leaflet);
 //DOM ELEMENT
 const logInForm = document.querySelector(".form");
+const logoutButton = document.querySelector(".nav__el--logout");
 //DELEGATION
 if (document.getElementById("map")) {
     const locations = JSON.parse(document.getElementById("map").dataset.locations);
@@ -175,6 +176,7 @@ if (logInForm) logInForm.addEventListener("submit", function(e) {
     const password = document.querySelector("#password").value;
     (0, _login.login)(email, password);
 });
+if (logoutButton) logoutButton.addEventListener("click", (0, _login.logout));
 
 },{"core-js/modules/es.symbol.description.js":"hgu4d","core-js/modules/es.array.flat.js":"lRn13","core-js/modules/es.array.flat-map.js":"gM669","core-js/modules/es.array.sort.js":"PLp5i","core-js/modules/es.array.unscopables.flat.js":"88nm6","core-js/modules/es.array.unscopables.flat-map.js":"2tF7j","core-js/modules/es.math.hypot.js":"bPuQ3","core-js/modules/es.object.from-entries.js":"98OZX","core-js/modules/es.promise.js":"5t0IQ","core-js/modules/es.promise.finally.js":"c5ALq","core-js/modules/es.regexp.flags.js":"kZ4xK","core-js/modules/es.typed-array.set.js":"8AABK","core-js/modules/es.typed-array.sort.js":"gqGeA","core-js/modules/web.queue-microtask.js":"eRNJq","./login":"qZEOz","./leaflet":"58ZVV","@parcel/transformer-js/src/esmodule-helpers.js":"5Birt"}],"hgu4d":[function(require,module,exports) {
 // `Symbol.prototype.description` getter
@@ -3446,9 +3448,9 @@ $({
 /* eslint-disable */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "login", ()=>login);
+parcelHelpers.export(exports, "logout", ()=>logout);
 var _alerts = require("./alerts");
 async function login(email, password) {
-    // if (!email || !password) return;
     try {
         const res = await axios({
             method: "POST",
@@ -3468,6 +3470,18 @@ async function login(email, password) {
         (0, _alerts.showAlert)("error", err.response.data.message);
     }
 }
+const logout = async ()=>{
+    try {
+        const res = await axios({
+            method: "GET",
+            url: "http://localhost:3000/api/v1/users/logout"
+        });
+        (0, _alerts.showAlert)("success", "Logged-out successfully");
+        if (res.data.status === "success") location.reload(true);
+    } catch (err) {
+        (0, _alerts.showAlert)("error", "Cannot logged out! Try again");
+    }
+};
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"5Birt","./alerts":"j4hQk"}],"5Birt":[function(require,module,exports) {
 exports.interopDefault = function(a) {

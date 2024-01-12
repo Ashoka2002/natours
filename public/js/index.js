@@ -1,11 +1,12 @@
 /*eslint-disable*/
 import "core-js/stable";
 import "regenerator-runtime/runtime.js";
-import { login } from "./login";
+import { login, logout } from "./login";
 import displayMap from "./leaflet";
 
 //DOM ELEMENT
 const logInForm = document.querySelector(".form");
+const logoutButton = document.querySelector(".nav__el--logout");
 
 //DELEGATION
 if (document.getElementById("map")) {
@@ -20,4 +21,8 @@ if (logInForm) {
     const password = document.querySelector("#password").value;
     login(email, password);
   });
+}
+
+if (logoutButton) {
+  logoutButton.addEventListener("click", logout);
 }

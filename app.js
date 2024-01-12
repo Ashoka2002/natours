@@ -80,10 +80,10 @@ app.use(
 );
 
 ////TEST MIDDLEWARE
-app.use((req, res, next) => {
-  console.log(req.cookies);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(req.cookies);
+//   next();
+// });
 
 // ROUTES
 
