@@ -8,6 +8,7 @@ import { updateSettings } from "./updateSettings";
 //DOM ELEMENT
 const logInForm = document.querySelector(".form--login");
 const updateForm = document.querySelector(".form-user-data");
+const updatePassword = document.querySelector(".form-user-password");
 const logoutButton = document.querySelector(".nav__el--logout");
 
 //DELEGATION
@@ -31,7 +32,26 @@ if (updateForm) {
     //VALUES
     const email = document.getElementById("email").value;
     const name = document.getElementById("name").value;
-    updateSettings(email, name);
+    updateSettings({ email, name }, "data");
+  });
+}
+
+if (updatePassword) {
+  updatePassword.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    document.querySelector(".btn--save-password").textContent = "Updating...";
+    //VALUES
+    const passwordCurrent = document.getElementById("password-current").value;
+    const password = document.getElementById("password").value;
+    const passwordConfirm = document.getElementById("password-confirm").value;
+    console.log(passwordCurrent, passwordConfirm, password);
+    await updateSettings({ passwordCurrent, password, passwordConfirm }, "password");
+
+    document.querySelector(".btn--save-password").textContent = "SAVE PASSWORD";
+
+    document.getElementById("password-current").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("password-confirm").value = "";
   });
 }
 

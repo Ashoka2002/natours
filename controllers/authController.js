@@ -193,8 +193,9 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     return next(new AppError("Your current password is wrong", 404));
   }
   //if so, update password
-  user.password = req.body.Password;
-  user.passwordConfirm = req.body.PasswordConfirm;
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  console.log(user.password, user.passwordConfirm);
   await user.save();
 
   // log user in send jwt

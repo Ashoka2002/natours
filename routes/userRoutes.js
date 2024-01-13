@@ -32,7 +32,7 @@ router.patch("/resetPassword/:token", resetPassword);
 
 router.use(protect);
 
-router.patch("/updatePassword", updatePassword);
+router.patch("/updateMyPassword", updatePassword);
 router.patch("/updateMe", updateMe);
 router.delete("/deleteMe", deleteMe);
 router.get("/me", getMe, getUser);

@@ -165,6 +165,7 @@ var _updateSettings = require("./updateSettings");
 //DOM ELEMENT
 const logInForm = document.querySelector(".form--login");
 const updateForm = document.querySelector(".form-user-data");
+const updatePassword = document.querySelector(".form-user-password");
 const logoutButton = document.querySelector(".nav__el--logout");
 //DELEGATION
 if (document.getElementById("map")) {
@@ -183,7 +184,28 @@ if (updateForm) updateForm.addEventListener("submit", function(e) {
     //VALUES
     const email = document.getElementById("email").value;
     const name = document.getElementById("name").value;
-    (0, _updateSettings.updateSettings)(email, name);
+    (0, _updateSettings.updateSettings)({
+        email,
+        name
+    }, "data");
+});
+if (updatePassword) updatePassword.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    document.querySelector(".btn--save-password").textContent = "Updating...";
+    //VALUES
+    const passwordCurrent = document.getElementById("password-current").value;
+    const password = document.getElementById("password").value;
+    const passwordConfirm = document.getElementById("password-confirm").value;
+    console.log(passwordCurrent, passwordConfirm, password);
+    await (0, _updateSettings.updateSettings)({
+        passwordCurrent,
+        password,
+        passwordConfirm
+    }, "password");
+    document.querySelector(".btn--save-password").textContent = "SAVE PASSWORD";
+    document.getElementById("password-current").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("password-confirm").value = "";
 });
 if (logoutButton) logoutButton.addEventListener("click", (0, _login.logout));
 
@@ -3486,7 +3508,7 @@ const logout = async ()=>{
             url: "http://localhost:3000/api/v1/users/logout"
         });
         (0, _alerts.showAlert)("success", "Logged-out successfully");
-        if (res.data.status === "success") location.reload(true);
+        if (res.data.status === "success") location.assign("/");
     } catch (err) {
         (0, _alerts.showAlert)("error", "Cannot logged out! Try again");
     }
@@ -3579,18 +3601,16 @@ function displayMap(locations) {
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "updateSettings", ()=>updateSettings);
 var _alerts = require("./alerts");
-const updateSettings = async (email, name)=>{
+const updateSettings = async (data, type)=>{
     try {
+        const url = type === "password" ? "http://localhost:3000/api/v1/users/updateMyPassword" : "http://localhost:3000/api/v1/users/updateMe";
         const res = await axios({
             method: "PATCH",
-            url: "http://localhost:3000/api/v1/users/updateMe",
-            data: {
-                email,
-                name
-            }
+            url,
+            data
         });
         if (res.data.status === "success") {
-            (0, _alerts.showAlert)("success", "Data updated successfully!");
+            (0, _alerts.showAlert)("success", `${type.split("")[0].toUpperCase() + type.slice(1)} updated successfully!`);
             location.reload();
         }
     } catch (err) {
