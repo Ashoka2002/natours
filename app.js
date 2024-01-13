@@ -81,10 +81,10 @@ app.use(
 );
 
 ////TEST MIDDLEWARE
-// app.use((req, res, next) => {
-//   console.log(req.cookies);
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log(req.cookies);
+  next();
+});
 
 // ROUTES
 
@@ -93,6 +93,11 @@ app.use(
 // app.get("/api/v1/tours/:id", getTour);
 // app.patch("/api/v1/tours/:id", updateTour);
 // app.delete("/api/v1/tours/:id", deleteTour);
+
+// app.use((req, res, next) => {
+//   console.log("routes se pahle chal raha h");
+//   next();
+// });
 
 app.use("/", viewRouter);
 app.use("/api/v1/tours", tourRouter);

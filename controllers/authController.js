@@ -90,14 +90,15 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // GRANT ACCESS
   req.user = user;
+  res.locals.user = user;
   next();
 });
 
 // ONLY FOR RENDERED PAGES
 exports.isLoggedIn = async (req, res, next) => {
-  try {
-    // Getting token and check of it's there
-    if (req.cookies.jwt) {
+  // Getting token and check of it's there
+  if (req.cookies.jwt) {
+    try {
       const token = req.cookies.jwt;
 
       // Verification token
@@ -113,10 +114,11 @@ exports.isLoggedIn = async (req, res, next) => {
       // AT THIS POINT USER LOGGED IN
       res.locals.user = user;
       return next();
+    } catch (err) {
+      return next();
     }
-  } catch (err) {
-    return next();
   }
+  next();
 };
 
 exports.restrictTo = (...roles) => {
