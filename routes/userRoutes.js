@@ -1,5 +1,5 @@
 const express = require("express");
-
+const multer = require("multer");
 const {
   getAllusers,
   getUser,
@@ -22,6 +22,7 @@ const {
   logout
 } = require("../controllers/authController");
 
+const upload = multer({ dest: "public/img/users" });
 const router = express.Router();
 
 router.post("/signup", signup);
@@ -33,7 +34,7 @@ router.patch("/resetPassword/:token", resetPassword);
 router.use(protect);
 
 router.patch("/updateMyPassword", updatePassword);
-router.patch("/updateMe", updateMe);
+router.patch("/updateMe", upload.single("photo"), updateMe);
 router.delete("/deleteMe", deleteMe);
 router.get("/me", getMe, getUser);
 
