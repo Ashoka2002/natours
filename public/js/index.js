@@ -4,13 +4,14 @@ import "regenerator-runtime/runtime.js";
 import { login, logout } from "./login";
 import displayMap from "./leaflet";
 import { updateSettings } from "./updateSettings";
+import { bookTour } from "./stripe";
 
 //DOM ELEMENT
 const logInForm = document.querySelector(".form--login");
 const updateForm = document.querySelector(".form-user-data");
 const updatePassword = document.querySelector(".form-user-password");
 const logoutButton = document.querySelector(".nav__el--logout");
-
+const bookButton = document.getElementById("book-tour");
 //DELEGATION
 if (document.getElementById("map")) {
   const locations = JSON.parse(document.getElementById("map").dataset.locations);
@@ -59,4 +60,13 @@ if (updatePassword) {
 
 if (logoutButton) {
   logoutButton.addEventListener("click", logout);
+}
+
+if (bookButton) {
+  bookButton.addEventListener("click", async e => {
+    e.target.textContent = "Processing...";
+    const { tourId } = e.target.dataset;
+    await bookTour(tourId);
+    e.target.textContent = "Book tour now!";
+  });
 }
