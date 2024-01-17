@@ -7,6 +7,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const cookieparser = require("cookie-parser");
+const compression = require("compression");
 
 const globalErrorHandler = require("./controllers/errorController");
 const tourRouter = require("./routes/tourRoutes");
@@ -87,6 +88,9 @@ app.use(
   })
 );
 
+//  TEXT COMPRESSOR
+app.use(compression());
+
 ////TEST MIDDLEWARE
 // app.use((req, res, next) => {
 //   console.log(req.cookies);
@@ -100,11 +104,6 @@ app.use(
 // app.get("/api/v1/tours/:id", getTour);
 // app.patch("/api/v1/tours/:id", updateTour);
 // app.delete("/api/v1/tours/:id", deleteTour);
-
-// app.use((req, res, next) => {
-//   console.log("routes se pahle chal raha h");
-//   next();
-// });
 
 app.use("/", viewRouter);
 app.use("/api/v1/tours", tourRouter);

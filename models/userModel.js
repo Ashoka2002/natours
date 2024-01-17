@@ -62,8 +62,6 @@ userSchema.methods.isPasswordCorrect = async (candidatePassword, encryptedPasswo
 };
 
 userSchema.methods.isPasswordChanged = function(JWTTimeStamp) {
-  console.log("stamp:", JWTTimeStamp);
-
   if (this.passwordChangedAt) {
     const changedTimeStamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
     return JWTTimeStamp < changedTimeStamp;

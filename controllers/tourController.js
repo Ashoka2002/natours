@@ -137,8 +137,6 @@ exports.getTourWithin = catchAsync(async (req, res, next) => {
 
   const tours = await Tour.find({ startLocation: { $geoWithin: { $centerSphere: [[lng, lat], radius] } } });
 
-  console.log(distance, latlng, unit);
-
   res.status(200).json({
     status: "success",
     results: tours.length,
@@ -224,7 +222,6 @@ exports.getDistances = catchAsync(async (req, res, next) => {
 //   // const page = req.query.page * 1 || 1;
 //   // const limit = req.query.limit * 1 || 10;
 //   // const skip = (page - 1) * limit || 0;
-//   // console.log(`page ${page},limit ${limit}, skip ${skip}`);
 //   // // page = 2,limit = 10,
 //   // if (req.query.page) {
 //   //   const tourCount = await Tour.countDocuments();

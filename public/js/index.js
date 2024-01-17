@@ -47,7 +47,6 @@ if (updatePassword) {
     const passwordCurrent = document.getElementById("password-current").value;
     const password = document.getElementById("password").value;
     const passwordConfirm = document.getElementById("password-confirm").value;
-    console.log(passwordCurrent, passwordConfirm, password);
     await updateSettings({ passwordCurrent, password, passwordConfirm }, "password");
 
     document.querySelector(".btn--save-password").textContent = "SAVE PASSWORD";
