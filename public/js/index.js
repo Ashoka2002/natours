@@ -28,14 +28,16 @@ if (logInForm) {
 }
 
 if (updateForm) {
-  updateForm.addEventListener("submit", function(e) {
+  updateForm.addEventListener("submit", async function(e) {
+    document.getElementById("save-setting").textContent = "Saving...";
     e.preventDefault();
     //VALUES
     const form = new FormData();
     form.append("name", document.getElementById("name").value);
     form.append("email", document.getElementById("email").value);
     form.append("photo", document.getElementById("photo").files[0]);
-    updateSettings(form, "data");
+    await updateSettings(form, "data");
+    document.getElementById("save-setting").textContent = "Save settings";
   });
 }
 
