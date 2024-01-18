@@ -90,7 +90,7 @@ app.use(
 
 //  TEXT COMPRESSOR
 app.use(compression());
-
+app.enable("trust proxy");
 ////TEST MIDDLEWARE
 // app.use((req, res, next) => {
 //   console.log(req.cookies);
