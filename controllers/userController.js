@@ -5,8 +5,6 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appErrors");
 const { deleteOne, updateOne, getOne, getAll } = require("./handlerFactory");
 
-const sharp = {};
-
 // const multerStorage = multer.diskStorage({
 //   destination: (req, file, cb) => {
 //     cb(null, "public/img/users");
