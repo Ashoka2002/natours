@@ -20,6 +20,7 @@ const AppError = require("./utils/appErrors");
 const { webhookCheckout } = require("./controllers/bookingController");
 
 const app = express();
+app.enable("trust proxy");
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
@@ -70,6 +71,7 @@ if (process.env.NODE_ENV === "development") {
 
 // LIMIT REQUREST FROM SAME API
 const limiter = rateLimit({
+  validate: { trustProxy: false },
   max: 100,
   windowMs: 60 * 60 * 1000,
   message: "Too many requsts, Please try again later"
