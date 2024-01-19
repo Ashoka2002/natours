@@ -17,6 +17,7 @@ const reviewRouter = require("./routes/reviewRoutes");
 const viewRouter = require("./routes/viewRoutes");
 const bookingRouter = require("./routes/bookingRoutes");
 const AppError = require("./utils/appErrors");
+const { webhookCheckout } = require("./controllers/bookingController");
 
 const app = express();
 app.enable("trust proxy");
@@ -75,6 +76,8 @@ const limiter = rateLimit({
   message: "Too many requsts, Please try again later"
 });
 app.use("/api", limiter);
+
+app.post("/webhook-checkout", express.raw({ type: "application/json" }), webhookCheckout);
 
 //BODY PARSER, READING DATA FROM BODY INTO req.body
 app.use(express.json({ limit: "20kb" }));
