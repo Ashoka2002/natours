@@ -8,6 +8,7 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 const cookieparser = require("cookie-parser");
 const compression = require("compression");
+const cors = require("cors");
 
 const globalErrorHandler = require("./controllers/errorController");
 const tourRouter = require("./routes/tourRoutes");
@@ -18,6 +19,7 @@ const bookingRouter = require("./routes/bookingRoutes");
 const AppError = require("./utils/appErrors");
 
 const app = express();
+app.enable("trust proxy");
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
@@ -27,6 +29,10 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // GLOBAL MIDDLEWARES
+// ADDING CORS
+app.use(cors());
+app.options("*", cors());
+
 // SET SECURITY HTTP HEADERS
 const scriptSrcUrls = [
   "https://unpkg.com/",
@@ -90,7 +96,6 @@ app.use(
 
 //  TEXT COMPRESSOR
 app.use(compression());
-app.enable("trust proxy");
 ////TEST MIDDLEWARE
 // app.use((req, res, next) => {
 //   console.log(req.cookies);
@@ -98,7 +103,6 @@ app.enable("trust proxy");
 // });
 
 // ROUTES
-
 // app.get("/api/v1/tours", getAllTours);
 // app.post("/api/v1/tours", createTour);
 // app.get("/api/v1/tours/:id", getTour);
