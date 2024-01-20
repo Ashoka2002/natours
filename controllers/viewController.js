@@ -35,6 +35,12 @@ exports.getLoginForm = (req, res) => {
   });
 };
 
+exports.getSignupForm = (req, res) => {
+  res.status(200).render("signUp", {
+    title: "Create new account"
+  });
+};
+
 exports.getAccount = (req, res) => {
   res.status(200).render("account", {
     title: `${req.user.name.split(" ")[0]}'s account`

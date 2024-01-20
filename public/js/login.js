@@ -2,25 +2,29 @@
 
 import { showAlert } from "./alerts";
 
-export async function login(email, password) {
+export async function signupOrLogin(data, type = "login") {
+  if (type === "singup")
+    if (data.password !== data.passwordConfirm)
+      return showAlert("error", "Password and confirm password not matching!");
+
   try {
     const res = await axios({
       method: "POST",
-      url: "/api/v1/users/login",
-      data: {
-        email,
-        password
-      }
+      url: `/api/v1/users/${type}`,
+      data: type === "signup" ? data : { email: data.email, password: data.password }
     });
 
     if (res.data.status === "success") {
-      showAlert("success", "Logged in succesfull!");
+      showAlert("success", `${type} succesfull!`);
       window.setTimeout(() => {
         location.assign("/");
       }, 1500);
     }
   } catch (err) {
-    showAlert("error", err.response.data.message);
+    showAlert(
+      "error",
+      err.response.data.message.startsWith("E11000") ? "Email address alredy exist!" : err.respose.data.message
+    );
   }
 }
 

@@ -1,9 +1,5 @@
 extends base 
 
-//- block append head 
-//-   script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js' defer)
-//-   script(src='/js/login.js' defer)
-
 block content 
   main.main
     .login-form
@@ -16,4 +12,4 @@ block content
           label.form__label(for='password') Password
           input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
         .form__group
-          button.btn.btn--green Login
+          button.btn.btn--green#loginBtn Login
