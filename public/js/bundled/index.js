@@ -158,11 +158,11 @@ var _esRegexpFlagsJs = require("core-js/modules/es.regexp.flags.js");
 var _esTypedArraySetJs = require("core-js/modules/es.typed-array.set.js");
 var _esTypedArraySortJs = require("core-js/modules/es.typed-array.sort.js");
 var _webQueueMicrotaskJs = require("core-js/modules/web.queue-microtask.js");
-var _login = require("./login");
 var _leaflet = require("./leaflet");
 var _leafletDefault = parcelHelpers.interopDefault(_leaflet);
 var _updateSettings = require("./updateSettings");
 var _stripe = require("./stripe");
+var _login = require("./login");
 //DOM ELEMENT
 const logInForm = document.querySelector(".form--login");
 const signUpForm = document.querySelector(".form--signup");

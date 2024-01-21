@@ -1,10 +1,10 @@
 /*eslint-disable*/
 import "core-js/stable";
 import "regenerator-runtime/runtime.js";
-import { logout, signupOrLogin } from "./login";
 import displayMap from "./leaflet";
 import { updateSettings } from "./updateSettings";
 import { bookTour } from "./stripe";
+import { logout, signupOrLogin } from "./login";
 
 //DOM ELEMENT
 const logInForm = document.querySelector(".form--login");
