@@ -23,7 +23,7 @@ export async function signupOrLogin(data, type = "login") {
   } catch (err) {
     showAlert(
       "error",
-      err.response.data.message.startsWith("E11000") ? "Email address alredy exist!" : err.respose.data.message
+      err?.response?.data?.message.startsWith("E11000") ? "Email address alredy exist!" : err?.response?.data.message
     );
   }
 }

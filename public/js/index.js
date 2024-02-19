@@ -5,10 +5,14 @@ import displayMap from "./leaflet";
 import { updateSettings } from "./updateSettings";
 import { bookTour } from "./stripe";
 import { logout, signupOrLogin } from "./login";
+import { forgotPassword } from "./forgotPassword";
+import { resetPassword } from "./resetPassword";
 
 //DOM ELEMENT
 const logInForm = document.querySelector(".form--login");
 const signUpForm = document.querySelector(".form--signup");
+const forgotPassForm = document.querySelector(".form--forgot-password");
+const resetPassForm = document.querySelector(".form--reset-password");
 const updateForm = document.querySelector(".form-user-data");
 const updatePassword = document.querySelector(".form-user-password");
 const logoutButton = document.querySelector(".nav__el--logout");
@@ -25,7 +29,7 @@ if (logInForm) {
   logInForm.addEventListener("submit", async function(e) {
     e.preventDefault();
     //VALUES
-    btn.textContent = "Logging... ";
+    btn.textContent = "Please wait...";
     btn.disabled = true;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -51,6 +55,37 @@ if (signUpForm) {
 
     btn.disabled = false;
     btn.textContent = "Sign up";
+  });
+}
+
+if (forgotPassForm) {
+  const btn = document.getElementById("loginBtn");
+  forgotPassForm.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    //VALUES
+    btn.textContent = "Please wait...";
+    btn.disabled = true;
+    const email = document.getElementById("email").value;
+    await forgotPassword(email);
+    btn.disabled = false;
+    btn.textContent = "Log in";
+  });
+}
+
+if (resetPassForm) {
+  const btn = document.getElementById("signup-btn");
+  resetPassForm.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    //VALUES
+    btn.textContent = "Reseting...";
+    btn.disabled = true;
+    const token = window.location.href.split("/")[4];
+    const password = document.getElementById("sign-password").value;
+    const passwordConfirm = document.getElementById("passwordConfirm").value;
+    await resetPassword({ password, passwordConfirm }, token);
+
+    btn.disabled = false;
+    btn.textContent = "Reset";
   });
 }
 

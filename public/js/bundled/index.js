@@ -163,9 +163,13 @@ var _leafletDefault = parcelHelpers.interopDefault(_leaflet);
 var _updateSettings = require("./updateSettings");
 var _stripe = require("./stripe");
 var _login = require("./login");
+var _forgotPassword = require("./forgotPassword");
+var _resetPassword = require("./resetPassword");
 //DOM ELEMENT
 const logInForm = document.querySelector(".form--login");
 const signUpForm = document.querySelector(".form--signup");
+const forgotPassForm = document.querySelector(".form--forgot-password");
+const resetPassForm = document.querySelector(".form--reset-password");
 const updateForm = document.querySelector(".form-user-data");
 const updatePassword = document.querySelector(".form-user-password");
 const logoutButton = document.querySelector(".nav__el--logout");
@@ -180,7 +184,7 @@ if (logInForm) {
     logInForm.addEventListener("submit", async function(e) {
         e.preventDefault();
         //VALUES
-        btn.textContent = "Logging... ";
+        btn.textContent = "Please wait...";
         btn.disabled = true;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
@@ -211,6 +215,37 @@ if (signUpForm) {
         }, type = "signup");
         btn.disabled = false;
         btn.textContent = "Sign up";
+    });
+}
+if (forgotPassForm) {
+    const btn = document.getElementById("loginBtn");
+    forgotPassForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        //VALUES
+        btn.textContent = "Please wait...";
+        btn.disabled = true;
+        const email = document.getElementById("email").value;
+        await (0, _forgotPassword.forgotPassword)(email);
+        btn.disabled = false;
+        btn.textContent = "Log in";
+    });
+}
+if (resetPassForm) {
+    const btn = document.getElementById("signup-btn");
+    resetPassForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        //VALUES
+        btn.textContent = "Reseting...";
+        btn.disabled = true;
+        const token = window.location.href.split("/")[4];
+        const password = document.getElementById("sign-password").value;
+        const passwordConfirm = document.getElementById("passwordConfirm").value;
+        await (0, _resetPassword.resetPassword)({
+            password,
+            passwordConfirm
+        }, token);
+        btn.disabled = false;
+        btn.textContent = "Reset";
     });
 }
 if (updateForm) {
@@ -261,7 +296,7 @@ if (bookButton) bookButton.addEventListener("click", async (e)=>{
     e.target.textContent = "Book tour now!";
 });
 
-},{"core-js/modules/es.symbol.description.js":"jt1NU","core-js/modules/es.array.flat.js":"h3HYa","core-js/modules/es.array.flat-map.js":"kMnP3","core-js/modules/es.array.sort.js":"chdJf","core-js/modules/es.array.unscopables.flat.js":"elo2v","core-js/modules/es.array.unscopables.flat-map.js":"bwv8y","core-js/modules/es.math.hypot.js":"dAnKt","core-js/modules/es.object.from-entries.js":"3HDwh","core-js/modules/es.promise.js":"18XFo","core-js/modules/es.promise.finally.js":"8RDeY","core-js/modules/es.regexp.flags.js":"5ZkH1","core-js/modules/es.typed-array.set.js":"jvyp2","core-js/modules/es.typed-array.sort.js":"82f4V","core-js/modules/web.queue-microtask.js":"312Px","./login":"hXszI","./leaflet":"F1KIP","./updateSettings":"fwgbI","./stripe":"5JHCR","@parcel/transformer-js/src/esmodule-helpers.js":"3Hx7W"}],"jt1NU":[function(require,module,exports) {
+},{"core-js/modules/es.symbol.description.js":"jt1NU","core-js/modules/es.array.flat.js":"h3HYa","core-js/modules/es.array.flat-map.js":"kMnP3","core-js/modules/es.array.sort.js":"chdJf","core-js/modules/es.array.unscopables.flat.js":"elo2v","core-js/modules/es.array.unscopables.flat-map.js":"bwv8y","core-js/modules/es.math.hypot.js":"dAnKt","core-js/modules/es.object.from-entries.js":"3HDwh","core-js/modules/es.promise.js":"18XFo","core-js/modules/es.promise.finally.js":"8RDeY","core-js/modules/es.regexp.flags.js":"5ZkH1","core-js/modules/es.typed-array.set.js":"jvyp2","core-js/modules/es.typed-array.sort.js":"82f4V","core-js/modules/web.queue-microtask.js":"312Px","./login":"hXszI","./leaflet":"F1KIP","./updateSettings":"fwgbI","./stripe":"5JHCR","@parcel/transformer-js/src/esmodule-helpers.js":"3Hx7W","./forgotPassword":"frJ6y","./resetPassword":"aIlVW"}],"jt1NU":[function(require,module,exports) {
 // `Symbol.prototype.description` getter
 // https://tc39.es/ecma262/#sec-symbol.prototype.description
 "use strict";
@@ -3553,7 +3588,8 @@ async function signupOrLogin(data, type = "login") {
             }, 1500);
         }
     } catch (err) {
-        (0, _alerts.showAlert)("error", err.response.data.message.startsWith("E11000") ? "Email address alredy exist!" : err.respose.data.message);
+        var _err_response_data, _err_response, _err_response1;
+        (0, _alerts.showAlert)("error", (err === null || err === void 0 ? void 0 : (_err_response = err.response) === null || _err_response === void 0 ? void 0 : (_err_response_data = _err_response.data) === null || _err_response_data === void 0 ? void 0 : _err_response_data.message.startsWith("E11000")) ? "Email address alredy exist!" : err === null || err === void 0 ? void 0 : (_err_response1 = err.response) === null || _err_response1 === void 0 ? void 0 : _err_response1.data.message);
     }
 }
 const logout = async ()=>{
@@ -3581,7 +3617,7 @@ const showAlert = (type, message)=>{
     hideAlert();
     const markup = `<div class="alert alert--${type}">${message}</div>`;
     document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
-    window.setTimeout(hideAlert, 2000);
+    window.setTimeout(hideAlert, 5000);
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"3Hx7W"}],"3Hx7W":[function(require,module,exports) {
@@ -3693,6 +3729,48 @@ const bookTour = async (tourId)=>{
         (0, _alerts.showAlert)("error", err.message);
     }
 };
+
+},{"./alerts":"kfYcR","@parcel/transformer-js/src/esmodule-helpers.js":"3Hx7W"}],"frJ6y":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "forgotPassword", ()=>forgotPassword);
+var _alerts = require("./alerts");
+async function forgotPassword(email) {
+    try {
+        const res = await axios({
+            method: "POST",
+            url: "/api/v1/users/forgotPassword",
+            data: {
+                email
+            }
+        });
+        if (res.data.status === "success") (0, _alerts.showAlert)("success", `Check you email inbox`);
+    } catch (err) {
+        var _err_response;
+        console.log(err);
+        (0, _alerts.showAlert)("error", err === null || err === void 0 ? void 0 : (_err_response = err.response) === null || _err_response === void 0 ? void 0 : _err_response.data.message);
+    }
+}
+
+},{"./alerts":"kfYcR","@parcel/transformer-js/src/esmodule-helpers.js":"3Hx7W"}],"aIlVW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "resetPassword", ()=>resetPassword);
+var _alerts = require("./alerts");
+async function resetPassword(data, token) {
+    try {
+        const res = await axios({
+            method: "PATCH",
+            url: `/api/v1/users/resetPassword/${token}`,
+            data
+        });
+        if (res.data.status === "success") (0, _alerts.showAlert)("success", `Password successfully changed`);
+    } catch (err) {
+        var _err_response;
+        console.log(err);
+        (0, _alerts.showAlert)("error", err === null || err === void 0 ? void 0 : (_err_response = err.response) === null || _err_response === void 0 ? void 0 : _err_response.data.message);
+    }
+}
 
 },{"./alerts":"kfYcR","@parcel/transformer-js/src/esmodule-helpers.js":"3Hx7W"}]},["dJVYV"], "dJVYV", "parcelRequire11c7")
 

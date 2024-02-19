@@ -7,7 +7,6 @@ const Booking = require("../models/bookingModel");
 exports.getOverview = catchAsync(async (req, res, next) => {
   // 1) get tours
   const tours = await Tour.find();
-
   // 2) render template with tours data
   res.status(200).render("overview", {
     title: "All tours",
@@ -35,8 +34,20 @@ exports.getLoginForm = (req, res) => {
   });
 };
 
+exports.getForgotPasswordForm = (req, res) => {
+  res.status(200).render("forgot-password", {
+    title: "Forgot password"
+  });
+};
+
+exports.resetPasswordForm = (req, res) => {
+  res.status(200).render("reset-password-form", {
+    title: "Password reset"
+  });
+};
+
 exports.getSignupForm = (req, res) => {
-  res.status(200).render("signUp", {
+  res.status(200).render("signup", {
     title: "Create new account"
   });
 };
@@ -61,8 +72,15 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
   const bookings = await Booking.find({ user: req.user.id });
   const tourIds = bookings.map(el => el.tour);
   const tours = await Tour.find({ _id: { $in: tourIds } });
+
   res.status(200).render("overview", {
     title: "My bookings",
     tours
   });
+});
+
+/////// EXPERIMENTAL ///
+
+exports.getMain = catchAsync(async (req, res, next) => {
+  res.status(200).render("main");
 });
