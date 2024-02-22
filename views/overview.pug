@@ -9,7 +9,7 @@ block content
             .card__header
               .card__picture
                 .card__picture-overlay &nbsp;
-                img.card__picture-img(src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
+                img.card__picture-img(srcset=`/img/tours/${tour.imageCover.split('.')[0]+'-min.'+ tour.imageCover.split('.')[1]} 1000w, img/tours/${tour.imageCover} 2000w`,sizes='(max-width:37.5em) 40vw, 1000px',src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
               h3.heading-tertirary
                 span= tour.name
 

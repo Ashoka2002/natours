@@ -17,7 +17,7 @@ export async function signupOrLogin(data, type = "login") {
     if (res.data.status === "success") {
       showAlert("success", `${type} succesfull!`);
       window.setTimeout(() => {
-        location.assign("/");
+        location.assign("/overview");
       }, 1500);
     }
   } catch (err) {

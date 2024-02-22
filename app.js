@@ -55,6 +55,7 @@ app.use(
       styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
       workerSrc: ["'self'", "blob:"],
       objectSrc: [],
+      mediaSrc: ["*"],
       imgSrc: ["'self'", "blob:", "data:", "https:"],
       fontSrc: ["'self'", ...fontSrcUrls],
       frameSrc: ["self", "unsafe-inline", "data:", "blob:", "https://*.stripe.com"]

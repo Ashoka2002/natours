@@ -1427,3 +1427,12 @@ body {
     padding: 5rem 2rem;
   }
 }
+
+@media only screen and (min-width: 70em) {
+  .section-header {
+    position: relative;
+    height: 78vh;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--section-rotate)), 0 100%);
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  }
+}

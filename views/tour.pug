@@ -19,7 +19,7 @@ block content
   section.section-header
     .header__hero
       .header__hero-overlay &nbsp;
-      img.header__hero-img(src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
+      img.header__hero-img(srcset=`/img/tours/${tour.imageCover.split('.')[0]+'-min.'+ tour.imageCover.split('.')[1]} 1000w, /img/tours/${tour.imageCover} 2000w`,sizes='(max-width:37.5em) 100vw, 1500px', src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
 
     .heading-box
       h1.heading-primary
@@ -66,7 +66,8 @@ block content
   section.section-pictures
     each img, i in tour.images 
       .picture-box
-        img.picture-box__img(src=`/img/tours/${img}`, alt=`${tour.name} ${i+1}`, class=`picture-box__img--${i+1}`)
+        //- img.picture-box__img(src=`/img/tours/${img}`, alt=`${tour.name} ${i+1}`, class=`picture-box__img--${i+1}`)
+        img.picture-box__img(srcset=`/img/tours/${img.split('.')[0]+'-min.'+ img.split('.')[1]} 1000w, /img/tours/${img} 2000w`,sizes='(max-width:40em) 35vw, 1200px', src=`/img/tours/${img}`, alt=`${img} ${i+1}`, class=`picture-box__img--${i+1}`)
 
   section.section-map
     #map(data-locations=`${JSON.stringify(tour.locations)}`)
@@ -81,8 +82,8 @@ block content
     .cta
       .cta__img.cta__img--logo
         img(src='/img/logo-white.png', alt='Natours logo')
-      img.cta__img.cta__img--1(src=`/img/tours/${tour.images[0]}`, alt='Tour picture')
-      img.cta__img.cta__img--2(src=`/img/tours/${tour.images[1]}`, alt='Tour picture')
+      img.cta__img.cta__img--2(src=`/img/tours/${tour.images[1].split('.')[0]+'-min.'+ tour.images[1].split('.')[1]}`, alt='Tour picture')
+      img.cta__img.cta__img--1(src=`/img/tours/${tour.images[0].split('.')[0]+'-min.'+ tour.images[0].split('.')[1]}`, alt='Tour picture')
       .cta__content
         h2.heading-secondary What are you waiting for?
         p.cta__text= `${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`

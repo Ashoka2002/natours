@@ -15,8 +15,8 @@ const { getMyTours } = require("../controllers/viewController");
 
 const router = express.Router();
 
-// router.get("/", getMain);
-router.get("/", isLoggedIn, getOverview);
+router.get("/", getMain);
+router.get("/overview", isLoggedIn, getOverview);
 router.get("/login", isLoggedIn, getLoginForm);
 router.get("/forgot-password", isLoggedIn, getForgotPasswordForm);
 router.get("/reset-password/:resetToken", isLoggedIn, resetPasswordForm);
