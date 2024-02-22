@@ -44,7 +44,7 @@ if (signUpForm) {
   signUpForm.addEventListener("submit", async function(e) {
     e.preventDefault();
     //VALUES
-    btn.textContent = "Signing up...";
+    btn.textContent = "Please wait...";
     btn.disabled = true;
 
     const name = document.getElementById("name").value;
