@@ -259,12 +259,12 @@ body {
 .btn-text:link,
 .btn-text:visited {
   color: #55c57a;
-  display: inline-block;
   text-decoration: none;
   border-bottom: 1px solid #55c57a;
   padding: 3px;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
+  display: inline-block;
 }
 
 .btn-text:hover {
@@ -1086,13 +1086,16 @@ body {
 
 .forgot-password:link,
 .forgot-password:visited {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
   text-decoration: none;
-  color: blue;
   padding-left: 1rem;
+}
+
+#loginBtn {
+  display: block;
 }
 
 .form__input {
