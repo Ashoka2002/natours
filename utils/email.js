@@ -38,7 +38,7 @@ module.exports = class Email {
 
     // 2) DEFINING EMAIL OPTION
     const mailOption = {
-      from: "Ashok Choudhary <ashokchoudhary@email.com>",
+      from: "Ashok Choudhary <natours.ashok@email.com>",
       to: this.to,
       subject,
       html,
